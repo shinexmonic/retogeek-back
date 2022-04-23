@@ -6,6 +6,7 @@ use App\Models\Trabajador;
 use Illuminate\Http\Request;
 use App\Http\Resources\TrabajadorResource;
 use App\Http\Requests\TrabajadorRequest;
+use JWTAuth;
 
 class TrabajadorController extends Controller
 {

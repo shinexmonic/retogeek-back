@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\TareasRequest;
 use App\Http\Requests\TareasActEstadoRequest;
 use App\Http\Resources\TareaResource;
+use JWTAuth;
 
 class TareasController extends Controller
 {

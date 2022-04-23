@@ -6,6 +6,7 @@ use App\Models\Dependencia;
 use Illuminate\Http\Request;
 use App\Http\Resources\DependenciaResource;
 use App\Http\Requests\DependenciaRequest;
+use JWTAuth;
 
 class DependenciaController extends Controller
 {

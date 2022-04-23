@@ -15,9 +15,9 @@ class EstadoSeed extends Seeder
     public function run()
     {
         DB::table('estados')->insert([
-        	['id' => 1,'nombre' => 'PENDIENTE']
-        	['id' => 2,'nombre' => 'CUMPLIDA']
-        	['id' => 3,'nombre' => 'NO CUMPLETADA']
+        	['id' => 1,'nombre' => 'PENDIENTE'],
+        	['id' => 2,'nombre' => 'CUMPLIDA'],
+        	['id' => 3,'nombre' => 'NO CUMPLETADA'],
         ]);
     }
 }
