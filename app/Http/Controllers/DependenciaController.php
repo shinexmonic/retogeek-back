@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Dependencia;
 use Illuminate\Http\Request;
+use App\Http\Resources\DependenciaResource;
+use App\Http\Requests\DependenciaRequest;
 
 class DependenciaController extends Controller
 {
@@ -12,19 +14,10 @@ class DependenciaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function listarDependencias()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $dependencias = Dependencia::all();
+        return new DependenciaResource($dependencias);
     }
 
     /**
@@ -33,53 +26,9 @@ class DependenciaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function guardar(DependenciaRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Dependencia  $dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dependencia $dependencia)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Dependencia  $dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Dependencia $dependencia)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dependencia  $dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Dependencia $dependencia)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Dependencia  $dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Dependencia $dependencia)
-    {
-        //
+        $dependencias = Dependencia::create($request->all());
+        return new DependenciaResource($dependencias);
     }
 }

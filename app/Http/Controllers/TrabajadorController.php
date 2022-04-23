@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Trabajador;
 use Illuminate\Http\Request;
+use App\Http\Resources\TrabajadorResource;
+use App\Http\Requests\TrabajadorRequest;
 
 class TrabajadorController extends Controller
 {
@@ -12,19 +14,11 @@ class TrabajadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function listarTrabajadores()
     {
-        //
-    }
+        $dependencias = Trabajador::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return new TrabajadorResource($dependencias);
     }
 
     /**
@@ -33,53 +27,9 @@ class TrabajadorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function guardar(TrabajadorRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Trabajador  $trabajador
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Trabajador $trabajador)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Trabajador  $trabajador
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Trabajador $trabajador)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Trabajador  $trabajador
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Trabajador $trabajador)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Trabajador  $trabajador
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Trabajador $trabajador)
-    {
-        //
+        $dependencias = Trabajador::create($request->all());
+        return new TrabajadorResource($dependencias);
     }
 }

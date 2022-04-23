@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tareas;
+use App\Models\Tarea;
 use Illuminate\Http\Request;
+use App\Http\Requests\TareasRequest;
+use App\Http\Requests\TareasActEstadoRequest;
+use App\Http\Resources\TareaResource;
 
 class TareasController extends Controller
 {
@@ -12,19 +15,11 @@ class TareasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function listarTareas()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        //poner equivalencias aqui
+        $dependencias = Tarea::all();
+        return new TareaResource($dependencias);
     }
 
     /**
@@ -33,53 +28,21 @@ class TareasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function guardar(TareasRequest $request)
     {
-        //
+        $dependencias = Tarea::create($request->all());
+        return new TareaResource($dependencias);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tareas  $tareas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tareas $tareas)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tareas  $tareas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tareas $tareas)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tareas  $tareas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tareas $tareas)
+    public function cambiaEstado(TareasActEstadoRequest $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tareas  $tareas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Tareas $tareas)
-    {
-        //
+        $dependencias = Tareas::find($id)->update($request->update);
+        return new TrabajadorResource($dependencias);
     }
 }
