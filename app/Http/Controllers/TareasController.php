@@ -10,6 +10,15 @@ use App\Http\Resources\TareaResource;
 
 class TareasController extends Controller
 {
+    protected $user;
+    public function __construct(Request $request)
+    {
+        $token = $request->header('Authorization');
+        if($token != '')
+            //En caso de que requiera autentifiación la ruta obtenemos el usuario y lo almacenamos en una variable, nosotros no lo utilizaremos.
+            $this->user = JWTAuth::parseToken()->authenticate();
+    }
+    
     /**
      * Display a listing of the resource.
      *

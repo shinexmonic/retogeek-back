@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrabajadorController;
 use App\Http\Controllers\DependenciaController;
 use App\Http\Controllers\TareasController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +22,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('listarTareas', [TareasController::class, 'listarTareas']);
-Route::post('guardar/tareas', [TareasController::class, 'guardar']);
-Route::put('cambiarEstado/tareas', [TareasController::class, 'cambiarEstado']);
+Route::get('crearToken', [AuthController::class, 'crearToken']);
 
-Route::get('listarTrabajadores', [TrabajadorController::class, 'listarTrabajadores']);
-Route::post('guardar/trabajadores', [TrabajadorController::class, 'guardar']);
+Route::group(['middleware' => ['jwt.verify']], function() {
+	//Todo lo que este dentro de este grupo requiere verificación de usuario.
+	Route::get('listarTareas', [TareasController::class, 'listarTareas']);
+	Route::post('guardar/tareas', [TareasController::class, 'guardar']);
+	Route::put('cambiarEstado/tareas', [TareasController::class, 'cambiarEstado']);
 
-Route::get('listarDependencias', [DependenciaController::class, 'listarDependencias']);
-Route::post('guardar/dependencias', [DependenciaController::class, 'guardar']);
+	Route::get('listarTrabajadores', [TrabajadorController::class, 'listarTrabajadores']);
+	Route::post('guardar/trabajadores', [TrabajadorController::class, 'guardar']);
+
+	Route::get('listarDependencias', [DependenciaController::class, 'listarDependencias']);
+	Route::post('guardar/dependencias', [DependenciaController::class, 'guardar']);
+});
+
