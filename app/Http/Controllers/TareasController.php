@@ -32,10 +32,22 @@ class TareasController extends Controller
     public function listarTareas(Request $request)
     {
         //poner equivalencias aqui
-        $dependencias = Tarea::select('tareas.fecha_limite', 'tareas.descripcion', 'tareas.id', DB::raw("CONCAT(trabajadores.nombres, ' ', trabajadores.apellidos) as persona"))
+        $tareas = Tarea::select('dependencias.nombre as dependencia', 'tareas.fecha_limite', 'tareas.descripcion', 'tareas.id', DB::raw("CONCAT(trabajadores.nombres, ' ', trabajadores.apellidos) as persona"))
         ->join('trabajadores', 'trabajadores.id', 'tareas.id_trabajador')
-        ->where('id_estado', $this->equivalencias::estados()[$request->estado])->get();
-        return new TareaResource($dependencias);
+        ->join('dependencias', 'dependencias.id', 'trabajadores.id_dependencia')
+        ->where('id_estado', $this->equivalencias::estados()[$request->estado])
+        ->paginate(3);
+
+        $tareasSend = ['pagination' => [
+            'total'        => $tareas->total(),
+            'current_page' => $tareas->currentPage(),
+            'per_page'     => $tareas->perPage(),
+            'last_page'    => $tareas->lastPage(),
+            'from'         => $tareas->firstItem(),
+            'to'           => $tareas->lastItem(),
+        ],'tareas' => $tareas];
+
+        return new TareaResource($tareasSend);
     }
 
     /**

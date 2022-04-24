@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use JWTAuth;
+use JWTFactory;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -18,31 +19,16 @@ class AuthController extends Controller
 
     public function crearToken()
     {
+		$response = [];
         $user = User::first();
-
         $token = JWTAuth::fromUser($user);
-        var_dump($token);exit();
+		
+		$response = [
+			'status' => true,
+			'token'  => $token,
+		];	
 
-    	try 
-    	{
-			$payload = JWTFactory::sub(123)->aud('foo')->foo(['bar' => 'baz'])->make();
-			$token = JWTAuth::encode($payload);
-            
-			//var_dump($token);exit();
-            //return  response()->json(compact('token'));
-
-			return [
-				'status' => true,
-				'token'  => $token,
-			];
-
-    	} catch (Exception $e) {
-
-    		return response()->json([
-				'status' => false,
-				'token'  => '',
-			]);
-    	}	
+		return $response;
     }
 
 }
