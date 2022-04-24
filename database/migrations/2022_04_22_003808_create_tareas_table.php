@@ -19,7 +19,7 @@ class CreateTareasTable extends Migration
             $table->date('fecha_limite');
             $table->longText('observaciones')->nullable();
             $table->bigInteger('id_trabajador')->unsigned();
-            $table->bigInteger('id_estado')->unsigned();
+            $table->bigInteger('id_estado')->unsigned()->default(1);
             $table->timestamps();
 
             $table->foreign('id_trabajador')->on('trabajadores')->references('id');

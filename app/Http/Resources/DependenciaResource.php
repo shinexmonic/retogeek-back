@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class DependenciaResource extends JsonResource
+class DependenciaResource extends ResourceCollection
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,7 @@ class DependenciaResource extends JsonResource
     {
         return [
             'status'   => true,
-            'data'     => $request->all(),
+             'data' => $this->collection,
             'messages' => ''
         ];
     }

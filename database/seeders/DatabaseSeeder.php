@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        CargoSeed::class;
-        EstadoSeed::class;
-        UserSeed::class;
+        $this->call([
+            // \App\Models\User::factory(10)->create();
+            CargoSeed::class,
+            EstadoSeed::class,
+            UserSeed::class,
+        ]);
     }
 }

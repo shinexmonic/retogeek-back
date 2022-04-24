@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class TareasActEstadoRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class TareasActEstadoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +27,17 @@ class TareasActEstadoRequest extends FormRequest
     {
         return [
             'observaciones' => 'required',//no es obligatorio
+            'fecha' => 'required',//no es obligatorio
             'id_estado'     => 'required|integer'
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success'   => false,
+            'messages'  => 'Errores de validación',
+            'data'      => $validator->errors()
+        ]));
     }
 }

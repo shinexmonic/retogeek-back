@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class TareasRequest extends FormRequest
 {
@@ -27,7 +29,6 @@ class TareasRequest extends FormRequest
             'descripcion'   => 'required',
             'fecha_limite'  => 'required|date_format:Y-m-d',
             'id_trabajador' => 'required|integer',
-            'id_estado'     => 'required|integer',
         ];
     }
 

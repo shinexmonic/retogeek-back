@@ -6,6 +6,7 @@ use App\Http\Controllers\TrabajadorController;
 use App\Http\Controllers\DependenciaController;
 use App\Http\Controllers\TareasController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CargoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +27,11 @@ Route::get('crearToken', [AuthController::class, 'crearToken']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
 	//Todo lo que este dentro de este grupo requiere verificación de usuario.
-	Route::get('listarTareas', [TareasController::class, 'listarTareas']);
-	Route::post('guardar/tareas', [TareasController::class, 'guardar']);
-	Route::put('cambiarEstado/tareas', [TareasController::class, 'cambiarEstado']);
+	Route::get('listarCargos', [CargoController::class, 'listarCargos']);
+
+	Route::get('listarTareas/{estado}', [TareasController::class, 'listarTareas']);
+	Route::post('guardar/tarea', [TareasController::class, 'guardar']);
+	Route::post('cambiarEstado/tareas', [TareasController::class, 'cambiaEstado']);
 
 	Route::get('listarTrabajadores', [TrabajadorController::class, 'listarTrabajadores']);
 	Route::post('guardar/trabajadores', [TrabajadorController::class, 'guardar']);
